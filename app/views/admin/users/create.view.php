@@ -19,7 +19,7 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-success">Create</button>
-        <button type="reset" class="btn btn-danger">Reset</button>
+        <button type="reset" class="btn btn-warning">Reset</button>
     </div>
 
 </form>

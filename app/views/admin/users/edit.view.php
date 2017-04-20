@@ -9,7 +9,7 @@
     
     <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" class="form-control" value="" placeholder="enter new pass">
+        <input type="password" name="password" id="password" class="form-control" value="" placeholder="Enter new password">
     </div>
 
 
@@ -25,7 +25,7 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-success">Update</button>
-        <button type="reset" class="btn btn-danger">Reset</button>
+        <button type="reset" class="btn btn-warning">Reset</button>
     </div>
 
 </form>

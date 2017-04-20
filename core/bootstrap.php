@@ -3,7 +3,7 @@
 use App\Core\App;
 
 if(!isset($_SESSION)){
-    session_start();
+	session_start();
 }
 
 App::bind('config', require 'config.php');
@@ -12,22 +12,22 @@ App::bind('config', require 'config.php');
 
 
 App::bind('database',  new QueryBuilder(
-    Connection::make(App::get('config')['database'])
-));
+	Connection::make(App::get('config')['database'])
+	));
 
 function view($name, $data = []) {
 
-    extract($data);
+	extract($data);
 
-    return require "app/views/{$name}.view.php";
+	return require "app/views/{$name}.view.php";
 }
 
 function redirect($url) {
-    header("Location: /{$url}");
+	header("Location: /{$url}");
 }
 
 function dd($printedResult){
-	 echo "<pre>";
-        print_r($printedResult);
-        exit();
+	echo "<pre>";
+	print_r($printedResult);
+	exit();
 }

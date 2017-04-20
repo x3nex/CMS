@@ -9,13 +9,6 @@ class AdminDashboardController {
 
      public function index()
     {
-    	/// check if user is logged in
-    	// AuthController::checkLogin();
-    	/// check if users is admin
-
-    	// prepare analytical data 
-
-    	/// prepare functionalities for editing with super permissions
 
         // $users = App::get('database')->getAll('users');
         $pageTitle = "Admin Dashboard";

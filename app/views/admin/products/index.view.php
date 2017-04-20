@@ -22,6 +22,7 @@
             <td><?= $product->name ?></td>
             <td><?= $product->price ?> &euro;</td>
             <td><?= ucfirst($categories [$product->category_id]) ?></td>
+            
 
             
             <td class="text-center">

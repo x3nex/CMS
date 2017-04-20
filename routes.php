@@ -1,8 +1,7 @@
 <?php
 
 $routes->get('home', 'PagesController@home');
-$routes->get('about', 'PagesController@about');
-$routes->get('contact', 'PagesController@contact');
+$routes->get('', 'PagesController@welcome');
 
 //login control routes 
 
@@ -15,7 +14,7 @@ $routes->get('logout', 'AuthController@logout');
 $routes->get('api/dashboard', 'DashboardController@index');
 // $routes->post('dashboard', 'DashboardController@store');
 
-$routes->get('admin/dashboard', 'AdminDashboardController@index', 'auth');
+$routes->get('admin/dashboard', 'AdminDashboardController@index');
 // $routes->get('admin/dashboard/new', 'AdminDashboardController@create');
 // $routes->post('admin/dashboard/new', 'AdminDashboardController@insert');
 // $routes->get('admin/dashboard/edit', 'AdminDashboardController@edit');
@@ -23,7 +22,7 @@ $routes->get('admin/dashboard', 'AdminDashboardController@index', 'auth');
 // $routes->get('admin/dashboard/delete', 'AdminDashboardController@delete');
 
 //User control routes
-
+$routes->get('api/user', 'UsersController@getCurrentUser');
 $routes->get('api/users', 'UsersController@index');
 $routes->post('users', 'UsersController@store');
 
@@ -46,22 +45,23 @@ $routes->get('admin/products/edit', 'AdminProductsController@edit');
 $routes->post('admin/products', 'AdminProductsController@update');
 $routes->get('admin/products/delete', 'AdminProductsController@delete');
 
-//Orders control routes
 
-// $routes->get('api/orders', 'OrdersController@index');
-// $routes->post('orders', 'OrdersController@store');
+//Categories control routes
 
-// $routes->get('admin/orders', 'AdminOrdersController@index');
-// $routes->get('admin/orders/new', 'AdminOrdersController@create');
-// $routes->post('admin/orders/new', 'AdminOrdersController@insert');
-// $routes->get('admin/orders/edit', 'AdminOrdersController@edit');
-// $routes->post('admin/orders', 'AdminOrdersController@update');
-// $routes->get('admin/orders/delete', 'AdminOrdersController@delete');
+$routes->get('api/categories', 'CategoriesController@index');
+$routes->post('categories', 'CategoriesController@store');
+
+$routes->get('admin/categories', 'AdminCategoriesController@index');
+$routes->get('admin/categories/new', 'AdminCategoriesController@create');
+$routes->post('admin/categories/new', 'AdminCategoriesController@insert');
+$routes->get('admin/categories/edit', 'AdminCategoriesController@edit');
+$routes->post('admin/categories', 'AdminCategoriesController@update');
+$routes->get('admin/categories/delete', 'AdminCategoriesController@delete');
 
 // $routes->get('login', 'UsersController@storeLogin'); //changethis to post after login form submit
 
 //// inner join for listing products in order
-/// SELECT * FROM `orders` o inner join order_product p on o.id = p.order_id
+/// SELECT * FROM `Categories` o inner join order_product p on o.id = p.order_id
 
 
 /// when store order -> 

@@ -3,6 +3,8 @@ namespace App\Controllers;
 use \App\Core\App;
 use App\Core\AuthGuard;
 
+AuthController::checkLogin();
+
 class AdminUsersController {
 
     public function index()

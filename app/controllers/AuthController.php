@@ -16,6 +16,8 @@ class AuthController {
         $user = App::get('database')->authenticate($_POST['username'], $pass);
         if($user){
             $_SESSION['userRole'] = $user->role;
+            unset($user->password);
+            $_SESSION['user'] = $user;
             /// create auth token for session
             $token = uniqid("pos_");
             $_SESSION['userToken'] = $token;

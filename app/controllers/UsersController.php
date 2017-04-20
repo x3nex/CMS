@@ -29,3 +29,14 @@ class UsersController {
         return redirect('users');
     }
    
+    public function getCurrentUser()
+    
+   {
+
+       $user = $_SESSION['user'];
+       echo json_encode($user);
+       return;
+
+   }
+
+}

@@ -33,7 +33,7 @@ class Router {
 
             return $this->callAction(
                 ...explode("@", $this->routes[$method][$uri])
-            );
+                );
 
         }
         try {

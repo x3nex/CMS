@@ -10,8 +10,7 @@ class AdminProductsController {
 
     public function index()
     {
-        $products = App::get('database')->getAll('products');
-        //todo: investigate more
+        $products = App::get('database')->getAll('products', " ORDER BY category_id");
         $limitedProducts = App::get('database')->getAllWithFields('products', ['id', 'price']);
         return view('admin/products/index', ['products' => $products, 'categories'=>AdminProductsController::categories()]);
         //compact('products')); //['products' => $products]
@@ -61,7 +60,7 @@ class AdminProductsController {
     }
 
     /* Listing categories in index */
-    // this is new method
+    
    static function categories(){
         $categories = [];
         

@@ -6,10 +6,15 @@ use App\Core\AuthGuard;
 
 AuthController::checkLogin();
 
-class productsController {
+class ProductsController {
     public function index()
     {
-        $products = App::get('database')->getAll('products');
+
+        if(!isset($_GET['id'])) {
+            $products = App::get('database')->getAll('products');
+        } else {
+            $products = App::get('database')->getAllProducts($_GET['id']);
+        }
 
 //        return view('products', compact('products'));
      

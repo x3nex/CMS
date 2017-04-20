@@ -9,12 +9,20 @@ class QueryBuilder {
 
     }
 
-    public function getAll($table) {
-        $statement = $this->conn->prepare("SELECT * FROM {$table};");
+    public function getAll($table, $filter="") {
+        $statement = $this->conn->prepare("SELECT * FROM {$table}" . $filter . ";" );
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
-public function getAllWithFields($table, $fields = ['*']) {
+
+    public function getAllProducts($cat_id) {
+        $sql = "SELECT * FROM products WHERE category_id = {$cat_id};";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    public function getAllWithFields($table, $fields = ['*']) {
         $statement = $this->conn->prepare("SELECT ".implode(',', $fields)." FROM {$table};");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS);
@@ -24,7 +32,7 @@ public function getAllWithFields($table, $fields = ['*']) {
 
     public function authenticate($username, $password)
     {
-       
+     
         $statement = $this->conn->prepare("SELECT * FROM users WHERE username='{$username}' AND password='{$password}';");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS)[0];
@@ -37,53 +45,53 @@ public function getAllWithFields($table, $fields = ['*']) {
     }
     public function findBy($table, $key, $value) {
       $statement = $this->conn->prepare("SELECT * FROM `{$table}` WHERE `{$key}`='{$value}' limit 1;");
-        $statement->execute();
-        $results = $statement->fetchAll(PDO::FETCH_CLASS);
-        if(count($results)>0){
-            return $results[0];
-        }
-        return false;
+      $statement->execute();
+      $results = $statement->fetchAll(PDO::FETCH_CLASS);
+      if(count($results)>0){
+        return $results[0];
     }
+    return false;
+}
 
-    public function insert($table, $parameters)
+public function insert($table, $parameters)
+{
+    $sql = sprintf(
+      "INSERT INTO %s (%s) VALUES(%s)",
+      $table,
+      implode(', ', array_keys($parameters)),
+      ":" . implode(', :', array_keys($parameters))
+      );
+    $statement = $this->conn->prepare($sql);
+
+    $statement->execute($parameters);
+}
+
+public function update($table, $parameters, $id)
+{
+    $fields = "";
+    foreach ($parameters as $key => $parameter)
     {
-        $sql = sprintf(
-          "INSERT INTO %s (%s) VALUES(%s)",
-            $table,
-            implode(', ', array_keys($parameters)),
-            ":" . implode(', :', array_keys($parameters))
-        );
-        $statement = $this->conn->prepare($sql);
+     $fields .= "{$key} = \"{$parameter}\", ";
+ }
+ $fields = substr($fields, 0, -2);
 
-        $statement->execute($parameters);
-    }
+ $sql = sprintf(
+    "UPDATE %s SET %s WHERE id='%s'",
+    $table,
+    $fields,
+    $id
+    );
 
-    public function update($table, $parameters, $id)
-    {
-        $fields = "";
-       foreach ($parameters as $key => $parameter)
-       {
-           $fields .= "{$key} = \"{$parameter}\", ";
-       }
-       $fields = substr($fields, 0, -2);
+ $statement = $this->conn->prepare($sql);
 
-        $sql = sprintf(
-            "UPDATE %s SET %s WHERE id='%s'",
-            $table,
-            $fields,
-            $id
-        );
+ $statement->execute($parameters);
+}
 
-        $statement = $this->conn->prepare($sql);
+public function delete($table, $id)
+{
+    $statement = $this->conn->prepare("DELETE FROM {$table} WHERE id='{$id}';");
+    $statement->execute();
 
-        $statement->execute($parameters);
-    }
-
-    public function delete($table, $id)
-    {
-        $statement = $this->conn->prepare("DELETE FROM {$table} WHERE id='{$id}';");
-        $statement->execute();
-
-    }
+}
 }
 

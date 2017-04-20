@@ -3,23 +3,20 @@ namespace App\Controllers;
 use App\Core\AuthGuard;
 
 
-AuthController::checkLogin();
+
 
 class PagesController {
     public function home()
     {
-    // $_SESSION['mykey'] = "123123";
+		AuthController::checkLogin();
+		
     return view('index');
     }
 
-    public function contact()
+    public function welcome()
     {
-        // dd($_SESSION['mykey']);
-        return view('contact');
+      
+        return view('welcome');
     }
 
-    public function about()
-    {
-        return view('about');
-    }
 }

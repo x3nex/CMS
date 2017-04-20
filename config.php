@@ -3,7 +3,7 @@
 return [
     'database' => [
         'connection' => 'mysql:host=127.0.0.1',
-        'dbname' => 'hajde',
+        'dbname' => 'pos_db',
         'username' => 'root',
         'password' => '',
         'options' => [
